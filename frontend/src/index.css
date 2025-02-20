@@ -1,0 +1,44 @@
+:root {
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+}
+body{
+  margin:0;
+}
+
+[data-theme="light"] {  
+  --accent-color:#50be8e;
+  --background:white;
+  background-color: var(--background);
+  /* --border:1px solid #333333; */
+}
+
+[data-theme="dark"] {
+  --background:#101014;
+  --accent-color:#50be8e;
+  background-color: var(--background);
+  color: var(--accent-color);
+  --border:1px solid #333333;
+}
+
+.df{
+  display:flex;
+}
+.df_jc_space{
+  justify-content: space-between;
+}
+.df_jc_center{
+  justify-content: center;
+}
+.df_ai_center{
+  align-items: center;
+}
+.dfc{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.df_fd_c{
+  flex-direction: column;
+}
