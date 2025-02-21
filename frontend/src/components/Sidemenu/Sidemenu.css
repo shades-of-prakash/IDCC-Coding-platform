@@ -1,0 +1,45 @@
+.logo{
+    width:calc(100% - 20px);
+    height: 8%;
+    aspect-ratio: 1/1;
+    margin-bottom: 20px;
+}
+.logo_img{
+    width:100px;
+}
+.logo p{
+    font-size: 50px;
+    margin:0;
+    padding:10px;
+    font-weight: 900;
+}
+.menu_items{
+    width:calc(100% - 22px);
+    height:92%;
+    padding:0px;
+    gap:10px;
+}
+.menu_items .menu_item{
+    border-radius: 10px;
+    padding:8px;
+    list-style-type:none;
+    font-size:20px;
+    gap:10px;
+}
+.menu_item:hover{
+    background-color:transparent;
+    outline:var(--border);
+    backdrop-filter: blur(20px);
+    background-image: linear-gradient(180deg,rgb(255, 255, 255,0.13),rgb(0, 0, 0,0.3));
+    border-radius: 8px;
+}
+
+.menu_items .menu_item  svg{
+    width: 20px;
+    height:20px;
+}
+.menu_items .menu_item   a{
+    text-decoration: none;
+    color:var(--secondary-color);
+    /* font-weight: 400; */
+}

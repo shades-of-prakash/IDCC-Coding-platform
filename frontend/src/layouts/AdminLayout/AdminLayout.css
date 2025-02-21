@@ -3,12 +3,12 @@
     height:100dvh;
 }
 .sidemenu{
-    width:18%;
+    width:13%;
     height:100dvh;
     border-right:var(--border);
 }
 .main_navbar_outlet{
-    width:82%;
+    width:87%;
     /* background-color: green; */
 }
 

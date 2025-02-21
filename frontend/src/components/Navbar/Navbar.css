@@ -1,6 +1,6 @@
 .Navbar{
     height:8%;
-    border:var(--border);
+    border-bottom:var(--border);
 }
 .test{
     width:30px;
@@ -15,7 +15,6 @@
     justify-content: center;
     align-items: center;
     background-size: 2px;
-
 }
 .test img{
     width:15px;
