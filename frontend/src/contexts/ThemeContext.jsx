@@ -24,6 +24,7 @@ const ThemeProvider=({children})=>{
 
     useEffect(() => {
         const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        console.log(mediaQuery)
 
         const handleChange = (e) => {
             if (!localStorage.getItem("theme")) {
