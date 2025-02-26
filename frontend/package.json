@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "host":"vite --host",
+    "host": "vite --host",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "papaparse": "^5.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.2.0"

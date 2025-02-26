@@ -1,0 +1,86 @@
+.file_upload{
+    width:100%;
+    height:100%;
+    /* background-color: red; */
+}
+.file_upload_des{
+    width: 100%;
+    height:15%;
+    /* background-color: blue; */
+    padding:20px;
+    border-bottom: var(--border-light);
+}
+.des p{
+    font-size:24px;
+    margin-bottom: 4px;
+}
+.des span{
+    font-size: 14px;
+    color:var(--secondary-color-light);
+}
+
+.upload_button{
+    height:40px;
+    padding:12px;
+    border-radius:50px;
+    outline:none;
+    border:none;
+    font-size:medium;
+    background-color:var(--button-bg-color);
+    color:var(--primary-color);
+    border:var(--border);
+}
+.upload_button:hover{
+    background-color: var(--button-hover-color);
+    color:var(--button-hover-text-color);
+}
+.file_upload_main{
+    padding:10px;
+    height: 85%;
+    /* background-color: red; */
+}
+.upload {
+    position: relative;
+    width: calc(100% - 20px);
+    height:calc(100% - 20px);
+    /* background-color:rgb(var(--accent-rgb),0.3); */
+    background-image: 
+        repeating-linear-gradient(180deg, var(--accent-color), var(--accent-color) 3px, transparent 3px, transparent 8px),  
+        repeating-linear-gradient(90deg, var(--accent-color), var(--accent-color) 3px, transparent 3px, transparent 8px),  
+        repeating-linear-gradient(180deg, var(--accent-color), var(--accent-color) 3px, transparent 3px, transparent 8px), 
+        repeating-linear-gradient(90deg, var(--accent-color), var(--accent-color) 3px, transparent 3px, transparent 8px);  
+    background-size: var(--upload-border-height) 100%,100% var(--upload-border-height), var(--upload-border-height) 100%, 100% var(--upload-border-height);
+    background-position: 0 0, 0 0, 100% 0, 0 100%;
+    background-repeat: no-repeat;
+  }
+  
+.catppuccin--csv {
+    display: inline-block;
+    width: 200px;
+    height:200px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-bottom: 8px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%238ed45a' stroke-linecap='round' stroke-linejoin='round' d='M1.5 3.5c0-.54.48-1 1.08-1H6.5l1.54 1h5.38c.6 0 1.08.44 1.08.98l-.09 9.04c0 .54-.48.98-1.08.98H2.58c-.6 0-1.08-.44-1.08-.98zm2 4v4m3-4v4m3-4v4m3-4v4m-9 0h9m-9-2h9m-9-2h9' stroke-width='0.2'/%3E%3C/svg%3E");
+  }
+
+.upload label{
+    width: 100%;
+    height: 100%;
+    /* margin-top: 4px; */
+    /* display: none; */
+}
+input[type="file"]{
+    display: none;
+}
+
+.file_upload_des .file_upload_main{
+    position: absolute;
+    width:600px;
+    height: 500px;
+    background-color:var(--primary-color);
+    z-index: 1;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
