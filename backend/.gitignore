@@ -1,0 +1,45 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+.log
+logs/
+debug.log
+error.log
+*.pid
+*.seed
+*.state
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Cache & Temp files
+.cache/
+tmp/
+temp/
+dist/
+build/
+.DS_Store
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+
+# OS-specific files
+Thumbs.db
+.DS_Store

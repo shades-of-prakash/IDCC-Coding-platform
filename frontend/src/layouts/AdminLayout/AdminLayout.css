@@ -1,0 +1,14 @@
+.dashboard{
+    width:100%;
+    height:100dvh;
+}
+
+.main_navbar_outlet{
+    width:100%;
+    /* background-color: green; */
+}
+
+.outlet{
+    height:92%;
+    /* background-color: blue; */
+}
