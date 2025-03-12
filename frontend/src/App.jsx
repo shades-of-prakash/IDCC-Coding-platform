@@ -9,6 +9,7 @@ function App() {
     <ThemeProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<div>Hello</div>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Navigate to="overview" />} />
@@ -20,6 +21,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
+    // <div>Testing...</div>
   );
 }
 

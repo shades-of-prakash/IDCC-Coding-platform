@@ -6,12 +6,18 @@
 .login_image{
     width: 50%;
     background-color: pink;
+    height:100%;
+}
+.login_image img{
+    width:100%;
+    height:inherit;
+    object-fit:fill;
 }
 
 .login_content{
     width: 50%;
     /* background-color:rgb(var(--primary-color)); */
-    padding:40px;
+    padding:60px;
 }
 .login_content p{
     color:rgba(var(--secondary-color),0.7);
@@ -39,17 +45,19 @@
     /* border:none; */
     color:rgb(var(--secondary-color));
     background-color: transparent;
-    padding:4px;
+    padding:8px;
     font-size: 16px;
 }
+
 .input_sub{
     gap:10px;
+    color:rgb(var(--secondary-color),0.7);
 }
 .participant{
     gap:4px;
 }
 .participant span{
-    color:rgb(var(--secondary-color))
+    color:rgb(var(--secondary-color));
 }
 
 .participant svg{

@@ -1,10 +1,10 @@
 import "./Login.css";
 import {User} from "lucide-react"
-
+import LoginImage from "../../assets/login_image-2.png"
 const Login =()=>{
     return <div className="login_main df">
         <div className="login_image">
-            {/* <img src="" alt="" /> */}
+            <img src={LoginImage} alt="" />
         </div>
         <div className="login_content df dfc df_fd_c">
             <h1>IDCC CONTEST</h1>
