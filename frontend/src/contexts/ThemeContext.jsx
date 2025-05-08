@@ -1,49 +1,59 @@
-import { createContext,useEffect,useState } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 
-export const ThemeContext=createContext()
+export const ThemeContext = createContext({
+	theme: "light",
+	toggleTheme: () => {},
+});
 
-const ThemeProvider=({children})=>{
+export const useTheme = () => useContext(ThemeContext);
 
-    const getPreferredTheme = () => {
-        const storedTheme = localStorage.getItem("theme");
-        if (storedTheme) return storedTheme;
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    };
+export const ThemeProvider = ({ children }) => {
+	const [theme, setTheme] = useState("light");
 
-    const [theme, setTheme] = useState(getPreferredTheme());
+	const applyTheme = (newTheme) => {
+		setTheme(newTheme);
+		document.documentElement.classList.toggle("dark", newTheme === "dark");
+	};
 
-    const toggleTheme = () => {
-        const newTheme = theme === "light" ? "dark" : "light";
-        setTheme(newTheme);
-        localStorage.setItem("theme", newTheme);
-    };
+	const toggleTheme = () => {
+		const newTheme = theme === "dark" ? "light" : "dark";
+		localStorage.setItem("theme", newTheme);
+		applyTheme(newTheme);
+		localStorage.setItem("theme", newTheme);
+	};
 
-    useEffect(() => {
-        document.body.setAttribute("data-theme", theme);
-    }, [theme]);
+	useEffect(() => {
+		const storedTheme = localStorage.getItem("theme");
+		if (storedTheme === "light" || storedTheme === "dark") {
+			applyTheme(storedTheme);
+		} else {
+			// No stored preference — use system preference
+			const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+			const systemTheme = mediaQuery.matches ? "dark" : "light";
+			applyTheme(systemTheme);
+			localStorage.setItem("theme", newTheme);
+		}
 
-    useEffect(() => {
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-        const handleChange = (e) => {
-            if (!localStorage.getItem("theme")) {
-                setTheme(e.matches ? "dark" : "light");
-            }
-        };
+		// Watch system preference changes only if no user preference is stored
+		const handleChange = (e) => {
+			if (!localStorage.getItem("theme")) {
+				const newTheme = e.matches ? "dark" : "light";
+				applyTheme(newTheme);
+				localStorage.setItem("theme", newTheme);
+			}
+		};
 
-        if (!localStorage.getItem("theme")) {
-            setTheme(mediaQuery.matches ? "dark" : "light");
-        }
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+		mediaQuery.addEventListener("change", handleChange);
 
-        mediaQuery.addEventListener("change", handleChange);
-        return () => mediaQuery.removeEventListener("change", handleChange);
-    }, []);
+		return () => {
+			mediaQuery.removeEventListener("change", handleChange);
+		};
+	}, []);
 
-    return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            {children}
-        </ThemeContext.Provider>
-    );
-    
-}
-
-export default ThemeProvider
+	return (
+		<ThemeContext.Provider value={{ theme, toggleTheme }}>
+			{children}
+		</ThemeContext.Provider>
+	);
+};

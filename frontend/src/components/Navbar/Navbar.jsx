@@ -1,56 +1,62 @@
-import {Link, useLocation} from "react-router"
-import "./Navbar.css"
-import { uppercase } from "../../utils/uppercase"
-import { ArrowRight2,Moon ,Sun1,Home2} from "iconsax-react"
-import UserProfile from "../../assets/download.jpeg"
-import UseTheme from "../../hooks/UseTheme"
+import { Link, useLocation } from "react-router";
+import { uppercase } from "../../utils/uppercase";
+import { ArrowRight2, Moon, Sun1, Home2, Home3 } from "iconsax-react";
+import UserProfile from "../../assets/download.jpeg";
+import UseTheme from "../../hooks/UseTheme";
+import "./Navbar.css";
+const Navbar = () => {
+	const { theme, toggleTheme } = UseTheme();
+	const location = useLocation();
+	const allPaths = location.pathname
+		.split("/")
+		.filter((path) => path && path !== "admin");
+	const path = location.pathname.split("/").pop();
+	return (
+		<div className=" h-20 flex justify-between items-center border-b p-4 border-zinc-800">
+			<div className="flex">
+				<Link to="overview" className="flex justify-center items-center">
+					<Home2 size={24} className="stroke-accent" />
+				</Link>
 
-const Navbar=()=>{
-    const {theme,toggleTheme}=UseTheme()
-    const location=useLocation()
-    const allPaths=location.pathname.split("/").filter((path)=>path && path!=='admin')
-    const path=location.pathname.split("/").pop()
-    return <div className="Navbar df df_jc_space df_ai_center" >
-           <div className="currentpath df">
+				{!(allPaths.length === 1 && allPaths[0] === "overview") && (
+					<>
+						<div className="flex justify-center items-center">
+							<ArrowRight2 color="red" />
+						</div>
 
-            <Link to="overview" className="home_logo dfc">
-                <Home2 color="var(--accent-color)" />
-            </Link>
+						<div className=" flex items-center">
+							{allPaths
+								.filter((path) => path !== "overview")
+								.map((path, index, filteredPaths) => (
+									<div key={index} className="flex items-center">
+										<span>{uppercase(path)}</span>
+										{index !== filteredPaths.length - 1 && <ArrowRight2 />}
+									</div>
+								))}
+						</div>
+					</>
+				)}
+			</div>
 
-            {!(allPaths.length === 1 && allPaths[0] === "overview") && (
-                <>
-                    <div className="dfc bread_crumb_arrow">
-                        <ArrowRight2 color="red" />
-                    </div>
-
-                    <div className="breadcrumbs df df_ai_center">
-                        {allPaths
-                            .filter(path => path !== "overview")
-                            .map((path, index, filteredPaths) => (
-                                <div key={index} className="df df_ai_center">
-                                    <span>{uppercase(path)}</span>
-                                    {index !== filteredPaths.length - 1 && (
-                                        <ArrowRight2 color="var(--accent-color)" />
-                                    )}
-                                </div>
-                            ))}
-                    </div>
-                </>
-             )}
-                </div>
-
-            <div className="user_profile df df_jc_space">
-                <div className="dark_mode dfc" onClick={toggleTheme}>
-                   {theme=="dark"?<Sun1 color="var(--accent-color)"/>:<Moon color="var(--accent-color)"/>}
-                </div>
-                <div className="user_details df df_ai_center">
-                    <div className="user_image_container"><img src={UserProfile} alt="user_profile" /></div>
-                    <div className="user_name">
-                        <p>Shadesofprakash</p>
-                        <span>Admin</span>
-                    </div>
-                </div>
-            </div>
-    </div>
-}
-export default Navbar
+			<div className="flex justify-between gap-2">
+				<div className="flex justify-center items-center" onClick={toggleTheme}>
+					{theme == "dark" ? (
+						<Sun1 size={24} className="stroke-accent" />
+					) : (
+						<Moon size={24} className="stroke-accent" />
+					)}
+				</div>
+				<div className="bg-transparent bg-gradient-to-b from-gradient-top to-gradient-bottom outline-1 outline-zinc-800 p-2 gap-2 ml-1 rounded-xl flex items-center">
+					<div className="w-9 h-9 rounded-md overflow-hidden">
+						<img src={UserProfile} alt="user_profile" />
+					</div>
+					<div className="user_name">
+						<p>Shadesofprakash</p>
+						<span>Admin</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+export default Navbar;
