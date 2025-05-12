@@ -6,12 +6,12 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello, World!")
+    fmt.Fprintf(w, "Hello, duck!")
 }
 func apihandler(w http.ResponseWriter,r  *http.Request){
     w.Header().Set("Content-Type", "application/json")
     w.WriteHeader(http.StatusOK)
-    f := `{"message": "Hello, World!"}`
+    f := `{"message": "Hello, duck!"}`
     fmt.Fprintf(w, "%s", f) 
     fmt.Println("API endpoint hit")
     // return 
