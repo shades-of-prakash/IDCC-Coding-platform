@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
-.light {
+:root {
 	--primary-color: 249, 253, 255;
 	--secondary-color: 0, 0, 0;
 	--accent-color: 142, 212, 90;

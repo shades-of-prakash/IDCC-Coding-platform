@@ -1,27 +1,32 @@
 import { Link, useLocation } from "react-router";
 import logo from "../assets/Group 3.svg";
-import { Category, DocumentCode, MedalStar, Setting2 } from "iconsax-react";
+import { HugeiconsIcon } from '@hugeicons/react'
+import { Settings01Icon ,DocumentCodeIcon,ChampionIcon,DashboardSquare01Icon} from '@hugeicons/core-free-icons'
 
 const menuItems = [
 	{
 		name: "Overview",
 		path: "overview",
-		icon: <Category size={20} className="stroke-secondary" />,
+		icon: <HugeiconsIcon icon={DashboardSquare01Icon}  size={20} />,
+		
 	},
 	{
 		name: "Contest",
 		path: "contest",
-		icon: <MedalStar size={20} className="stroke-secondary" />,
+		icon:<HugeiconsIcon icon={ChampionIcon} size={20} />,
+		
 	},
 	{
 		name: "Submissions",
 		path: "submissions",
-		icon: <DocumentCode size={20} className="stroke-secondary" />,
+		icon: <HugeiconsIcon icon={DocumentCodeIcon} size={20} />,
+		
 	},
 	{
 		name: "Settings",
 		path: "settings",
-		icon: <Setting2 size={20} className="stroke-secondary" />,
+		icon:<HugeiconsIcon icon={Settings01Icon} size={20} />
+		
 	},
 ];
 
@@ -53,7 +58,6 @@ const SideMenu = () => {
 								className="flex p-2 w-full items-center gap-2 h-full"
 							>
 								{icon}
-
 								<span>{name}</span>
 							</Link>
 						</li>

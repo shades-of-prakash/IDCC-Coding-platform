@@ -31,7 +31,7 @@ export const ThemeProvider = ({ children }) => {
 			const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 			const systemTheme = mediaQuery.matches ? "dark" : "light";
 			applyTheme(systemTheme);
-			localStorage.setItem("theme", newTheme);
+			localStorage.setItem("theme", systemTheme);
 		}
 
 		// Watch system preference changes only if no user preference is stored
