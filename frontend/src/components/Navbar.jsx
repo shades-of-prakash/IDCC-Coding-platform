@@ -1,9 +1,8 @@
 import { Link, useLocation } from "react-router";
-import { uppercase } from "../../utils/uppercase";
+import { uppercase } from "../utils/uppercase";
 import { ArrowRight2, Moon, Sun1, Home2, Home3 } from "iconsax-react";
-import UserProfile from "../../assets/download.jpeg";
-import UseTheme from "../../hooks/UseTheme";
-import "./Navbar.css";
+import UserProfile from "../assets/download.jpeg";
+import UseTheme from "../hooks/UseTheme";
 const Navbar = () => {
 	const { theme, toggleTheme } = UseTheme();
 	const location = useLocation();

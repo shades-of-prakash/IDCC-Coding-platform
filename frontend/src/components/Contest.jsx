@@ -1,4 +1,4 @@
-import "./Upload.css";
+// import "./Upload.css";
 const ContestComponent = ({ contestData }) => {
 	console.log(contestData);
 	return (

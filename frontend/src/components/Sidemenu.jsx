@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import logo from "../../assets/Group 3.svg";
+import logo from "../assets/Group 3.svg";
 import { Category, DocumentCode, MedalStar, Setting2 } from "iconsax-react";
 
 const menuItems = [

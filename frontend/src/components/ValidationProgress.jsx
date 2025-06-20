@@ -1,7 +1,7 @@
-import "./Upload.css";
+// import "./Upload.css";
 import { useEffect, useState } from "react";
 import { CheckCircle, XCircle, Loader } from "lucide-react";
-import { validateContestFormat } from "../../utils/validateContestFormat";
+import { validateContestFormat } from "../utils/validateContestFormat";
 
 const ValidationProgress = ({
 	data,

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
-import SideMenu from "../components/Sidemenu/Sidemenu";
-import Navbar from "../components/Navbar";
+import SideMenu from "../components/Sidemenu.jsx";
+import Navbar from "../components/Navbar.jsx";
 
 function AdminLayout() {
 	return (

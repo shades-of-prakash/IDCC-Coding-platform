@@ -1,4 +1,4 @@
-import "./Upload.css";
+// import "./Upload.css";
 import { useState, useEffect, useCallback } from "react";
 import JsonUploader from "./JsonUploader";
 import ContestComponent from "./Contest";

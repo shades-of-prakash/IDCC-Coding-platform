@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router";
 import AdminLayout from "./layouts/AdminLayout";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import FileUpload from "./components/FileUpload/Upload";
+import FileUpload from "./components/Upload";
 import Login from "./pages/Login";
 
 function App() {

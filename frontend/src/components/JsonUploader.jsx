@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./Upload.css";
+// import "./Upload.css";
 import { FileJson } from "lucide-react";
-import ValidationProgress from "./ValidationProgress";
+import ValidationProgress from "./ValidationProgress.jsx";
 
 const JsonUploader = ({ onContestCreated = () => {} }) => {
 	const [validationData, setValidationData] = useState(null);
