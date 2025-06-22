@@ -1,33 +1,35 @@
-# Binaries for programs and plugins
+# Binaries for programs
 *.exe
-*.exe~
 *.dll
 *.so
 *.dylib
 
-# Test binary, coverage output
-*.test
-*.out
+# Test binaries
+*_test
 
-# Output of the go coverage tool
-coverage.out
-
-# Dependency directories (if using vendoring)
+# Build output
+bin/
+pkg/
+# For modules
 vendor/
 
-# Go workspace files
-go.work
-go.work.sum
+# Environment variables
+.env
+.env.*
 
-# IDE/editor specific
-.vscode/
-.idea/
-*.swp
-*.swo
+# IDE and editor files
+.idea/ # IntelliJ IDEA
+.vscode/ # VS Code
+*.sublime-project
+*.sublime-workspace
 
-# Logs
+# Operating system files
+.DS_Store # macOS
+Thumbs.db # Windows
+
+# Log files
 *.log
 
-# OS-specific files
-.DS_Store
-Thumbs.db
+# Dependency management tools
+Gopkg.lock
+Gopkg.toml
