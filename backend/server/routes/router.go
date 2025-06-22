@@ -15,4 +15,5 @@ func SetupRoutes(router *gin.Engine) {
 
 	router.GET("/user/:id", controllers.GetUser)
 	router.POST("/create_user", controllers.CreateUser)
+	router.POST("/admin", controllers.LoginManager)
 }
