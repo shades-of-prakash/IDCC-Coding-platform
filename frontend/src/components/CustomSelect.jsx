@@ -27,7 +27,7 @@ export function CustomSelect() {
 
 	return (
 		<div
-			className="z-100 w-[420px]  h-14 rounded-full ext-white/50"
+			className="z-100 w-full  h-14 rounded-full ext-white/50"
 			ref={selectRef}
 		>
 			<div
