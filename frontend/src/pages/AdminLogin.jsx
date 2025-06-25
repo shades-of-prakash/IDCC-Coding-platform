@@ -25,7 +25,7 @@ const AdminLogin = () => {
 				</div>
 				<h1 className="text-5xl font-bold text-green-400">IDCC</h1>
 				<div className="w-full  flex flex-col justify-center items-center">
-					<p className="text-sm w-full text-white/90  text-center">
+					<p className="text-sm w-95 text-white/90  text-center">
 						The official coding platform of Information Technology <span>(RVRJCCE)</span>
 					</p>
 				</div>
@@ -40,7 +40,7 @@ const AdminLogin = () => {
 							/>
 							<label
 								htmlFor="username"
-								className="absolute left-6 top-4 text-white/50 transition-all duration-250 peer-focus:-top-5 peer-focus:text-green-400 peer-focus:scale-90 peer-focus:p-[0.4em] peer-focus:bg-black peer-not-placeholder-shown:-top-5 peer-not-placeholder-shown:text-green-400 peer-not-placeholder-shown:scale-90 peer-not-placeholder-shown:p-[0.4em] peer-not-placeholder-shown:bg-black"
+								className="text-sm absolute left-6 top-5 text-white/50 transition-all duration-250 peer-focus:-top-5 peer-focus:text-green-400 peer-focus:scale-90 peer-focus:p-[0.4em] peer-focus:bg-black peer-not-placeholder-shown:-top-5 peer-not-placeholder-shown:text-green-400 peer-not-placeholder-shown:scale-90 peer-not-placeholder-shown:p-[0.4em] peer-not-placeholder-shown:bg-black"
 							>
 								Username
 							</label>
@@ -54,7 +54,7 @@ const AdminLogin = () => {
 							/>
 							<label
 								htmlFor="Password"
-								className="absolute left-6 top-4 text-white/50 transition-all duration-250 peer-focus:-top-5 peer-focus:text-green-400 peer-focus:scale-90 peer-focus:p-[0.4em] peer-focus:bg-black peer-not-placeholder-shown:-top-5 peer-not-placeholder-shown:text-green-400 peer-not-placeholder-shown:scale-90 peer-not-placeholder-shown:p-[0.4em] peer-not-placeholder-shown:bg-black"
+								className="text-sm absolute left-6 top-5 text-white/50 transition-all duration-250 peer-focus:-top-5 peer-focus:text-green-400 peer-focus:scale-90 peer-focus:p-[0.4em] peer-focus:bg-black peer-not-placeholder-shown:-top-5 peer-not-placeholder-shown:text-green-400 peer-not-placeholder-shown:scale-90 peer-not-placeholder-shown:p-[0.4em] peer-not-placeholder-shown:bg-black"
 							>
 								Password
 							</label>
