@@ -6,10 +6,12 @@ import svgr from "vite-plugin-svgr";
 export default defineConfig({
 	plugins: [react(), tailwindcss(), svgr()],
 	server: {
-		cors: {
-			origin: "http://localhost:3000",
-			methods: ["GET", "POST", "PUT", "DELETE"],
-			allowedHeaders: ["Content-Type", "Authorization"],
+		proxy: {
+			"/api": {
+				target: "http://localhost:8080",
+				changeOrigin: true,
+				secure: false,
+			},
 		},
 	},
 });

@@ -1,13 +1,13 @@
-// components/ProtectedRoute.jsx
+import React from "react";
 import { Navigate } from "react-router";
+import { useAuth } from "../contexts/AuthContext"; // adjust the path as needed
 
 const ProtectedRoute = ({ children }) => {
-	const token = localStorage.getItem("token");
+	const { isAuthenticated } = useAuth();
 
-	if (!token) {
+	if (!isAuthenticated) {
 		return <Navigate to="/admin-login" replace />;
 	}
-
 	return children;
 };
 

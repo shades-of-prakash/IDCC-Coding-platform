@@ -3,7 +3,6 @@ package controllers
 import (
 	"context"
 	"log"
-	"slices"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -38,11 +37,6 @@ func LoginManager(c *gin.Context) {
 		return
 	}
 
-	if !slices.Contains(manager.Roles, body.Role) {
-		utils.ErrorResponse(c, 403, "Role mismatch", nil)
-		return
-	}
-
 	token, err := utils.GenerateToken(manager.Username, manager.Roles)
 	if err != nil {
 		utils.ErrorResponse(c, 500, "Token generation failed", err.Error())
@@ -50,8 +44,10 @@ func LoginManager(c *gin.Context) {
 	}
 
 	utils.SuccessResponse(c, "Login successful", gin.H{
-		"token":    token,
-		"username": manager.Username,
-		"role":     manager.Roles,
+		"token": token,
+		"user": gin.H{
+			"username": manager.Username,
+			"role":     manager.Roles,
+		},
 	})
 }

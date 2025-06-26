@@ -7,13 +7,23 @@ import (
 )
 
 func SetupRoutes(router *gin.Engine) {
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "IDCC Coding Platform API is running!",
+	api := router.Group("/api/v1")
+	{
+		api.GET("/", func(c *gin.Context) {
+			c.JSON(200, gin.H{
+				"message": "IDCC Coding Platform API is running!",
+			})
 		})
-	})
 
-	router.GET("/user/:id", controllers.GetUser)
-	router.POST("/create_user", controllers.CreateUser)
-	router.POST("/admin", controllers.LoginManager)
+		user := api.Group("/user")
+		{
+			user.GET("/:id", controllers.GetUser)
+			user.POST("/", controllers.CreateUser)
+		}
+
+		admin := api.Group("/admin")
+		{
+			admin.POST("/login", controllers.LoginManager)
+		}
+	}
 }
