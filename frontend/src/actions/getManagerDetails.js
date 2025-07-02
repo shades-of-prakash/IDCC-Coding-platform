@@ -3,8 +3,10 @@ export default async function getManagerDetails({ username, password }) {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ username, password }),
+		credentials: "include",
 	});
 
+	console.log(response);
 	if (!response.ok) {
 		return { success: false, error: "Invalid credentials" };
 	}

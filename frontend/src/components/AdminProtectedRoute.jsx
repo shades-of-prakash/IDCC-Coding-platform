@@ -1,14 +1,18 @@
-import React from "react";
 import { Navigate } from "react-router";
-import { useAuth } from "../contexts/AuthContext"; // adjust the path as needed
+import { useAdminAuth } from "../contexts/AdminAuthContext";
 
-const ProtectedRoute = ({ children }) => {
-	const { isAuthenticated } = useAuth();
+const AdminProtectedRoute = ({ children }) => {
+	const { admin, loading } = useAdminAuth();
 
-	if (!isAuthenticated) {
-		return <Navigate to="/admin-login" replace />;
+	if (loading) {
+		return (
+			<div className="flex justify-center items-center h-screen">
+				<div className="w-12 h-12 border-4 border-gray-300 border-t-green-600 rounded-full animate-spin" />
+			</div>
+		);
 	}
-	return children;
+
+	return admin ? children : <Navigate to="/admin/login" replace />;
 };
 
-export default ProtectedRoute;
+export default AdminProtectedRoute;

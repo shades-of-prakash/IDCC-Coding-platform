@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"errors"
 	"os"
 	"time"
 
@@ -10,39 +9,31 @@ import (
 
 var jwtSecret = []byte(os.Getenv("JWT_SECRET"))
 
-type CustomClaims struct {
+type Claims struct {
 	Username string   `json:"username"`
 	Roles    []string `json:"roles"`
 	jwt.RegisteredClaims
 }
 
-// 🔐 Generate a token with username and role
-func GenerateToken(username string, role []string) (string, error) {
-	claims := CustomClaims{
+func GenerateToken(username string, roles []string) (string, error) {
+	claims := Claims{
 		Username: username,
-		Roles:    role,
+		Roles:    roles,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
 		},
 	}
-
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(jwtSecret)
 }
 
-func VerifyToken(tokenStr string) (*CustomClaims, error) {
-	token, err := jwt.ParseWithClaims(tokenStr, &CustomClaims{}, func(token *jwt.Token) (any, error) {
+func VerifyToken(tknStr string) (*Claims, error) {
+	token, err := jwt.ParseWithClaims(tknStr, &Claims{}, func(token *jwt.Token) (any, error) {
 		return jwtSecret, nil
 	})
 
-	if err != nil {
-		return nil, err
+	if claims, ok := token.Claims.(*Claims); ok && token.Valid {
+		return claims, nil
 	}
-
-	claims, ok := token.Claims.(*CustomClaims)
-	if !ok || !token.Valid {
-		return nil, errors.New("invalid or expired token")
-	}
-
-	return claims, nil
+	return nil, err
 }

@@ -9,10 +9,10 @@ import {
 } from "@hugeicons/core-free-icons";
 import UserProfile from "../assets/download.jpeg";
 import UseTheme from "../hooks/UseTheme";
-import { useAuth } from "../contexts/AuthContext";
-const Navbar = () => {
+import { useAdminAuth } from "../contexts/AdminAuthContext";
+const AdminNavbar = () => {
 	const { theme, toggleTheme } = UseTheme();
-	const { logout } = useAuth();
+	const { logout, user } = useAdminAuth();
 	const location = useLocation();
 	const allPaths = location.pathname
 		.split("/")
@@ -66,17 +66,25 @@ const Navbar = () => {
 					logout
 				</button>
 
-				<div className="bg-transparent bg-gradient-to-b from-gradient-top to-gradient-bottom outline-1 outline-zinc-800 p-2 gap-2 ml-1 rounded-xl flex items-center">
-					<div className="w-9 h-9 rounded-md overflow-hidden">
-						<img src={UserProfile} alt="user_profile" />
+				<div className="w-51 bg-transparent bg-gradient-to-b from-gradient-top to-gradient-bottom outline-1 outline-zinc-800 p-2 gap-3 rounded-xl flex items-center justify-center">
+					<div className="bg-red-900 w-14 h-12 rounded-md overflow-hidden">
+						<img
+							src={UserProfile}
+							alt="user_profile"
+							className=" w-full h-full"
+						/>
 					</div>
-					<div className="user_name">
-						<p>Shadesofprakash</p>
-						<span>Admin</span>
+					<div className="min-w-0">
+						<p className="text-base text-white truncate whitespace-nowrap overflow-hidden max-w-[160px]">
+							Prakash varma kokkilagadda
+						</p>
+						<span className="text-[10px] text-white/50 truncate">
+							{user?.roles[0]}
+						</span>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
 };
-export default Navbar;
+export default AdminNavbar;

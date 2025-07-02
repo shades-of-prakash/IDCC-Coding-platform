@@ -15,15 +15,17 @@ func SetupRoutes(router *gin.Engine) {
 			})
 		})
 
-		user := api.Group("/user")
-		{
-			user.GET("/:id", controllers.GetUser)
-			user.POST("/", controllers.CreateUser)
-		}
+		api.POST("/create_team", controllers.CreateTeam)
+		api.GET("/teams", controllers.GetAllTeams)
+		router.GET("/team_status/:teamID", controllers.SSEStatus)
 
 		admin := api.Group("/admin")
 		{
 			admin.POST("/login", controllers.LoginManager)
+			admin.POST("/logout", controllers.LogoutManager)
+			admin.GET("/session", controllers.CheckSession)
+			admin.PUT("/accept/:teamID", controllers.AcceptTeam)
+			admin.PUT("/reject/:teamID", controllers.RejectTeam)
 		}
 	}
 }

@@ -1,38 +1,53 @@
 import { Link, useLocation } from "react-router";
 import logo from "../assets/Group 3.svg";
-import { HugeiconsIcon } from '@hugeicons/react'
-import { Settings01Icon ,DocumentCodeIcon,ChampionIcon,DashboardSquare01Icon} from '@hugeicons/core-free-icons'
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+	Settings01Icon,
+	DocumentCodeIcon,
+	ChampionIcon,
+	DashboardSquare01Icon,
+} from "@hugeicons/core-free-icons";
+import { useAdminAuth } from "../contexts/AdminAuthContext";
 
-const menuItems = [
+const adminMenuItems = [
 	{
 		name: "Overview",
 		path: "overview",
-		icon: <HugeiconsIcon icon={DashboardSquare01Icon}  size={20} />,
-		
-	},
-	{
-		name: "Contest",
-		path: "contest",
-		icon:<HugeiconsIcon icon={ChampionIcon} size={20} />,
-		
+		icon: <HugeiconsIcon icon={DashboardSquare01Icon} size={20} />,
 	},
 	{
 		name: "Submissions",
 		path: "submissions",
 		icon: <HugeiconsIcon icon={DocumentCodeIcon} size={20} />,
-		
 	},
 	{
 		name: "Settings",
 		path: "settings",
-		icon:<HugeiconsIcon icon={Settings01Icon} size={20} />
-		
+		icon: <HugeiconsIcon icon={Settings01Icon} size={20} />,
+	},
+];
+
+const administratorMenuItems = [
+	{
+		name: "Overview",
+		path: "overview",
+		icon: <HugeiconsIcon icon={DashboardSquare01Icon} size={20} />,
+	},
+	{
+		name: "Contest",
+		path: "contest",
+		icon: <HugeiconsIcon icon={ChampionIcon} size={20} />,
 	},
 ];
 
 const SideMenu = () => {
+	const { admin } = useAdminAuth();
 	const location = useLocation();
 	const currentPath = location.pathname.split("/").pop();
+
+	const menuItems = admin.roles.includes("administrator")
+		? administratorMenuItems
+		: adminMenuItems;
 
 	return (
 		<div className="w-[15%] h-[100dvh] flex items-center flex-col border-r border-zinc-800 ">

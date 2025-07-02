@@ -1,9 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
-*{
-	font-family:"Poppins", sans-serif;
+* {
+	font-family: "Poppins", sans-serif;
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus,
+	input:-webkit-autofill:active {
+		-webkit-box-shadow: 0 0 0px 1000px black inset !important;
+		box-shadow: 0 0 0px 1000px black inset !important;
+		-webkit-text-fill-color: #ffffff !important;
+		transition: background-color 5000s ease-in-out 0s;
+	}
 }
 
 :root {
@@ -27,7 +36,6 @@
 	background-color: var(var(--primary-color));
 	color: var(var(--secondary-color));
 	--glass: linear-gradient(180deg, #0e5320, #0e5320);
-	  
 }
 
 .dark {
@@ -74,5 +82,5 @@
 	--color-border: rgb(var(--border));
 	--color-gradient-top: rgba(var(--gradient-top-color));
 	--color-gradient-bottom: rgba(var(--gradient-bottom-color));
-	--font-poppins:"Poppins", sans-serif;
+	--font-poppins: "Poppins", sans-serif;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router";
-import { useAuth } from "../contexts/AuthContext";
+// import { useAuth } from "../contexts/AdminAuthContext";
 
 const UserProtectedRoute = ({ children }) => {
 	const isAuthenticated = false;
