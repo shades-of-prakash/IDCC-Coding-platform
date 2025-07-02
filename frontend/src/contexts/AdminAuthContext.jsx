@@ -1,49 +1,35 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import fetchWithHandler from "../utils/fetchHandler";
-// import { isAuthError } from "../utils/isAuthError";
 
-const AdminAuthContext = createContext();
+const AdminAuthContext = createContext(null);
 
 export const AdminAuthProvider = ({ children }) => {
 	const queryClient = useQueryClient();
+	const [hasLoggedIn, setHasLoggedIn] = useState(false);
 
-	// 🔐 SESSION QUERY
+	// 🔐 SESSION QUERY (disabled initially)
 	const {
 		data: admin,
 		isLoading: loading,
 		isError,
 		error,
+		refetch: refetchSession,
 	} = useQuery({
 		queryKey: ["admin-session"],
 		queryFn: async () => {
-			try {
-				const res = await fetchWithHandler("/api/v1/admin/session", {
-					credentials: "include",
-				});
-				return res.data.user || null;
-			} catch (err) {
-				if (
-					!(err.status === 401 || err.message.includes("Not authenticated"))
-				) {
-					console.error("Session check error:", err);
-				}
-				return null;
-				throw err;
-			}
+			const res = await fetchWithHandler("/api/v1/admin/session", {
+				credentials: "include",
+			});
+			return res.data.user || null;
 		},
-		staleTime: 1000 * 60 * 5,
+		enabled: hasLoggedIn, // only run after login
 		refetchOnWindowFocus: false,
-		onError: (err) => {
-			if (!(err.status === 401 || err.message.includes("Not authenticated"))) {
-				console.error("Session check error:", err);
-			}
-			queryClient.setQueryData(["admin-session"], null);
-		},
+		staleTime: 1000 * 60 * 5,
 	});
 
 	// 🔑 LOGIN MUTATION
-	const login = useMutation({
+	const loginMutation = useMutation({
 		mutationFn: async ({ username, password }) => {
 			const res = await fetchWithHandler("/api/v1/admin/login", {
 				method: "POST",
@@ -52,20 +38,19 @@ export const AdminAuthProvider = ({ children }) => {
 			});
 			return res.data.user;
 		},
-		onSuccess: (user) => {
-			queryClient.setQueryData(["admin-session"], user);
-		},
-		onError: () => {
-			queryClient.setQueryData(["admin-session"], null);
+		onSuccess: async () => {
+			setHasLoggedIn(true); // enable session check
+			await refetchSession(); // manually refetch session
 		},
 	});
 
 	// 🚪 LOGOUT MUTATION
-	const logout = useMutation({
+	const logoutMutation = useMutation({
 		mutationFn: () =>
 			fetchWithHandler("/api/v1/admin/logout", { method: "POST" }),
 		onSuccess: () => {
 			queryClient.removeQueries({ queryKey: ["admin-session"] });
+			setHasLoggedIn(false); // prevent session from auto refetching
 		},
 	});
 
@@ -76,10 +61,10 @@ export const AdminAuthProvider = ({ children }) => {
 				loading,
 				isError,
 				error,
-				login: login.mutate,
-				loginStatus: login,
-				logout: logout.mutate,
-				logoutStatus: logout,
+				login: loginMutation.mutate,
+				loginStatus: loginMutation,
+				logout: logoutMutation.mutate,
+				logoutStatus: logoutMutation,
 			}}
 		>
 			{children}
