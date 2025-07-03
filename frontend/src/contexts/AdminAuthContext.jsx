@@ -1,14 +1,15 @@
-import React, { createContext, useContext, useState } from "react";
+// src/contexts/AdminAuthContext.js
+import { createContext, useContext } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useLocation } from "react-router"; // Add this import
 import fetchWithHandler from "../utils/fetchHandler";
 
 const AdminAuthContext = createContext(null);
 
 export const AdminAuthProvider = ({ children }) => {
 	const queryClient = useQueryClient();
-	const [hasLoggedIn, setHasLoggedIn] = useState(false);
-
-	// 🔐 SESSION QUERY (disabled initially)
+	const location = useLocation();
+	const isLoginPage = location.pathname === "/admin/login";
 	const {
 		data: admin,
 		isLoading: loading,
@@ -18,39 +19,40 @@ export const AdminAuthProvider = ({ children }) => {
 	} = useQuery({
 		queryKey: ["admin-session"],
 		queryFn: async () => {
-			const res = await fetchWithHandler("/api/v1/admin/session", {
-				credentials: "include",
-			});
-			return res.data.user || null;
+			try {
+				const res = await fetchWithHandler("/api/v1/admin/session");
+				return res.data.user || null;
+			} catch (error) {
+				if (error.message.includes("401")) {
+					return null;
+				}
+				throw error;
+			}
 		},
-		enabled: hasLoggedIn, // only run after login
+		enabled: !isLoginPage,
 		refetchOnWindowFocus: false,
 		staleTime: 1000 * 60 * 5,
+		retry: false,
 	});
 
-	// 🔑 LOGIN MUTATION
 	const loginMutation = useMutation({
 		mutationFn: async ({ username, password }) => {
 			const res = await fetchWithHandler("/api/v1/admin/login", {
 				method: "POST",
-				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ username, password }),
 			});
 			return res.data.user;
 		},
 		onSuccess: async () => {
-			setHasLoggedIn(true); // enable session check
-			await refetchSession(); // manually refetch session
+			await refetchSession();
 		},
 	});
 
-	// 🚪 LOGOUT MUTATION
 	const logoutMutation = useMutation({
 		mutationFn: () =>
 			fetchWithHandler("/api/v1/admin/logout", { method: "POST" }),
 		onSuccess: () => {
 			queryClient.removeQueries({ queryKey: ["admin-session"] });
-			setHasLoggedIn(false); // prevent session from auto refetching
 		},
 	});
 

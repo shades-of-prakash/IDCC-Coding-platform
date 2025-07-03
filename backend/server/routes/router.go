@@ -11,13 +11,13 @@ func SetupRoutes(router *gin.Engine) {
 	{
 		api.GET("/", func(c *gin.Context) {
 			c.JSON(200, gin.H{
-				"message": "IDCC Coding Platform API is running!",
+				"message": "IDCC Coding Platform APsI is running!",
 			})
 		})
 
 		api.POST("/create_team", controllers.CreateTeam)
 		api.GET("/teams", controllers.GetAllTeams)
-		router.GET("/team_status/:teamID", controllers.SSEStatus)
+		api.GET("/team_status/:teamID", controllers.SSEStatus)
 
 		admin := api.Group("/admin")
 		{

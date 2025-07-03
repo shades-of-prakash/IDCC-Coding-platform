@@ -1,4 +1,3 @@
-// utils/fetchWithHandler.js
 export default async function fetchWithHandler(url, options = {}) {
 	try {
 		const res = await fetch(url, {
@@ -6,15 +5,17 @@ export default async function fetchWithHandler(url, options = {}) {
 			...options,
 		});
 
-		const data = await res.json();
+		const contentType = res.headers.get("content-type");
+		const isJson = contentType && contentType.includes("application/json");
+		const data = isJson ? await res.json() : null;
 
 		if (!res.ok) {
-			throw new Error(data.message || "Something went wrong");
+			const errorMessage = data?.message || `Error ${res.status}`;
+			throw new Error(errorMessage);
 		}
 
 		return data;
 	} catch (error) {
-		console.error(`Fetch error for ${url}:`, error.message);
-		throw error;
+		throw new Error(error.message || "Something went wrong");
 	}
 }

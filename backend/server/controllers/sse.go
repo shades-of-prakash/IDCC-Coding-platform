@@ -12,6 +12,7 @@ import (
 
 func SSEStatus(c *gin.Context) {
 	teamID := c.Param("teamID")
+	fmt.Println("teamid", teamID)
 	collection := db.MongoClient.Database("IDCC").Collection("users")
 	ctx := context.Background()
 

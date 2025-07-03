@@ -6,6 +6,7 @@ import {
 	DocumentCodeIcon,
 	ChampionIcon,
 	DashboardSquare01Icon,
+	CheckmarkSquare02Icon,
 } from "@hugeicons/core-free-icons";
 import { useAdminAuth } from "../contexts/AdminAuthContext";
 
@@ -37,6 +38,11 @@ const administratorMenuItems = [
 		name: "Contest",
 		path: "contest",
 		icon: <HugeiconsIcon icon={ChampionIcon} size={20} />,
+	},
+	{
+		name: "Requests",
+		path: "requests",
+		icon: <HugeiconsIcon icon={CheckmarkSquare02Icon} size={20} />,
 	},
 ];
 
@@ -73,7 +79,7 @@ const SideMenu = () => {
 								className="flex p-2 w-full items-center gap-2 h-full"
 							>
 								{icon}
-								<span>{name}</span>
+								<span className="font-normal text-sm">{name}</span>
 							</Link>
 						</li>
 					);

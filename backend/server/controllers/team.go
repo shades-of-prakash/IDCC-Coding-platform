@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"regexp"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -26,19 +27,33 @@ type Team struct {
 	CreatedAt time.Time `bson:"createdAt" json:"createdAt"`
 }
 
+// MatchRegNoFormat ensures format like y22it034
 func MatchRegNoFormat(input string) (string, error) {
+	input = strings.ToLower(strings.TrimSpace(input))
 	regex := regexp.MustCompile(`^y\d{2}it\d{3}$`)
 	if regex.MatchString(input) {
 		return input, nil
 	}
 	return "", fmt.Errorf("invalid registration number format: %s", input)
 }
-func generateId(reg_one string, reg_two string) string {
+
+// normalizeRegNos sorts the two reg numbers to ensure consistency
+func normalizeRegNos(reg1, reg2 string) (string, string) {
+	if reg1 > reg2 {
+		return reg2, reg1
+	}
+	return reg1, reg2
+}
+
+// generateId creates unique ID based on normalized regNos
+func generateId(reg1, reg2 string) string {
+	r1, r2 := normalizeRegNos(reg1, reg2)
 	re := regexp.MustCompile(`0*(\d+)$`)
-	part1 := re.FindStringSubmatch(reg_one)
-	part2 := re.FindStringSubmatch(reg_two)
+	part1 := re.FindStringSubmatch(r1)
+	part2 := re.FindStringSubmatch(r2)
 	return fmt.Sprintf("A%s-B%s", part1[0], part2[0])
 }
+
 func CreateTeam(c *gin.Context) {
 	var req struct {
 		Members [2]Member `json:"members"`
@@ -49,6 +64,7 @@ func CreateTeam(c *gin.Context) {
 		return
 	}
 
+	// Format & validate registration numbers
 	reg1, err1 := MatchRegNoFormat(req.Members[0].RegNo)
 	reg2, err2 := MatchRegNoFormat(req.Members[1].RegNo)
 
@@ -60,14 +76,24 @@ func CreateTeam(c *gin.Context) {
 		return
 	}
 
+	// ❌ Same reg no for both members
+	if reg1 == reg2 {
+		utils.ErrorResponse(c, http.StatusBadRequest, "Both participants cannot have the same registration number", nil)
+		return
+	}
+
+	// Normalize regNos to check for prior participation
+	norm1, norm2 := normalizeRegNos(reg1, reg2)
+
 	collection := db.MongoClient.Database("IDCC").Collection("users")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
+	// ❌ Check if either regNo already in a team
 	filter := bson.M{
 		"$or": []bson.M{
-			{"members.regNo": reg1},
-			{"members.regNo": reg2},
+			{"members.regNo": norm1},
+			{"members.regNo": norm2},
 		},
 	}
 
@@ -78,10 +104,15 @@ func CreateTeam(c *gin.Context) {
 		return
 	}
 
-	teamID := generateId(reg1, reg2)
+	teamID := generateId(norm1, norm2)
+
+	// Create new team with normalized regNos
 	newTeam := Team{
-		ID:        teamID,
-		Members:   req.Members,
+		ID: teamID,
+		Members: [2]Member{
+			{Name: req.Members[0].Name, RegNo: norm1},
+			{Name: req.Members[1].Name, RegNo: norm2},
+		},
 		Status:    "pending",
 		CreatedAt: time.Now(),
 	}
